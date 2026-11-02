@@ -97,8 +97,6 @@ body[data-view='midway'] main {
 }
 
 .midway-help,
-.midway-guide,
-.midway-credit,
 .booth-card {
   position: absolute;
   margin: 0;
@@ -115,34 +113,6 @@ body[data-view='midway'] main {
   color: var(--color-muted);
   font-size: 14px;
   line-height: 1.7;
-}
-
-.midway-credit {
-  top: 16px;
-  left: 16px;
-  padding: 6px 12px;
-  color: var(--color-muted);
-  font-size: 13px;
-}
-
-.midway-credit a {
-  color: var(--color-accent);
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.midway-credit a:hover,
-.midway-credit a:focus-visible {
-  text-decoration: underline;
-}
-
-.midway-links {
-  display: block;
-  margin-top: 2px;
-}
-
-.midway-share[hidden] {
-  display: none;
 }
 
 kbd {
@@ -171,47 +141,6 @@ kbd {
 
 .blimp-link:focus {
   transform: translateX(-50%);
-}
-
-.midway-guide {
-  top: 16px;
-  right: 16px;
-  padding: 10px 14px;
-  font-size: 14px;
-}
-
-.midway-guide h2 {
-  margin: 0 0 6px;
-  color: var(--color-muted);
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.midway-guide ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.midway-guide a {
-  display: flex;
-  gap: 12px;
-  justify-content: space-between;
-  padding: 3px 0;
-  color: var(--color-text);
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.midway-guide a:hover .name,
-.midway-guide a:focus-visible .name {
-  color: var(--color-accent);
-}
-
-.midway-guide .best {
-  color: var(--color-muted);
-  font-weight: normal;
 }
 
 .booth-card {
@@ -265,8 +194,7 @@ kbd {
 }
 
 @media (max-width: 720px) {
-  .midway-help,
-  .midway-credit {
+  .midway-help {
     display: none;
   }
 }
