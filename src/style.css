@@ -154,7 +154,7 @@ kbd {
   font-weight: bold;
 }
 
-/* Keyboard access to the blimp: out of sight until it has focus. */
+/* Keyboard access to the blimp: visually hidden until it has focus. */
 .blimp-link {
   position: absolute;
   top: 16px;
@@ -166,11 +166,18 @@ kbd {
   color: var(--color-accent);
   font-size: 13px;
   font-weight: bold;
-  transform: translate(-50%, calc(-100% - 24px));
+  white-space: nowrap;
+  transform: translateX(-50%);
 }
 
-.blimp-link:focus {
-  transform: translateX(-50%);
+.blimp-link:not(:focus) {
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
 }
 
 .midway-guide {
