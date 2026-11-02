@@ -1,0 +1,14 @@
+{
+  "name": "Release game listeners and animation frames on stop",
+  "instruction": "A CarnivalGame start method returns a cleanup function that cancels its active animation frame and removes every event listener it added.",
+  "relevant_when": "The file contains a start(canvas) method and calls requestAnimationFrame or addEventListener inside it.",
+  "context": "AGENTS.md house rule 5 and the CarnivalGame contract in src/carnival/registry.ts require a game to release resources when the player leaves its booth.",
+  "scope": "file",
+  "scope_reason": "The start method contains both resource registration and its returned teardown function.",
+  "checklist": [
+    {
+      "name": "matched-cleanup",
+      "rule": "The returned function removes each listener added by start and cancels the active scheduled animation frame, including the frame most recently requested by a running loop."
+    }
+  ]
+}

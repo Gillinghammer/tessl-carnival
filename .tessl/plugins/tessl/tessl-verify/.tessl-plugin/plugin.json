@@ -1,0 +1,7 @@
+{
+  "name": "tessl/tessl-verify",
+  "version": "0.1.1",
+  "description": "Set up, author, tune, and roll out tessl change verify checks for pull requests",
+  "private": false,
+  "skills": "./skills/"
+}

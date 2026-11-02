@@ -1,0 +1,11 @@
+{
+  "name": "tessl/tessl-verify",
+  "version": "0.1.1",
+  "summary": "Set up, author, tune, and roll out tessl change verify checks for pull requests",
+  "private": false,
+  "skills": {
+    "tessl-verify": {
+      "path": "skills/tessl-verify/SKILL.md"
+    }
+  }
+}

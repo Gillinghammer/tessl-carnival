@@ -1,0 +1,18 @@
+{
+  "name": "Record completed game scores once through the shared module",
+  "instruction": "A scored game's completed round records its final score exactly once through recordScore from src/carnival; the game does not keep an independent high-score store.",
+  "relevant_when": "A src/games/<game-id>/game.ts file defines a scored CarnivalGame with a round-ending state or condition.",
+  "context": "AGENTS.md house rule 2 routes scores through the shared scores module, which owns browser storage and the midway scoreboard.",
+  "scope": "file",
+  "scope_reason": "The game's score, end-of-round transition, recording call, and any direct storage use are visible in its game.ts file.",
+  "checklist": [
+    {
+      "name": "single-final-record",
+      "rule": "When a round ends, the final score is passed to recordScore with that game's id once, including when the render or update loop runs again; replay allows the next round to record once."
+    },
+    {
+      "name": "shared-score-storage",
+      "rule": "The game does not directly read or write localStorage or sessionStorage for scores, or maintain a separate high-score table."
+    }
+  ]
+}
