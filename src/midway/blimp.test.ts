@@ -1,5 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { BLIMP_ALTITUDE, BLIMP_HALF_WIDTH, BLIMP_SPEED, blimpPlace, onBlimp } from './blimp';
+import {
+  BLIMP_ALTITUDE,
+  BLIMP_CEILING,
+  BLIMP_HALF_HEIGHT,
+  BLIMP_HALF_WIDTH,
+  BLIMP_SPEED,
+  blimpPlace,
+  onBlimp,
+} from './blimp';
 
 describe('blimpPlace', () => {
   it('drifts slowly to the right', () => {
@@ -20,6 +28,17 @@ describe('blimpPlace', () => {
     for (const t of [0, 3, 50]) {
       expect(blimpPlace(t, 600, 200, false).y).toBeLessThan(200 - BLIMP_ALTITUDE / 2);
     }
+  });
+
+  it('stays below the top of the view when the horizon is near it', () => {
+    // At 1280x720 the horizon sits about 52 world pixels below the top of the view.
+    for (const t of [0, 2, 3, 50]) {
+      const { y } = blimpPlace(t, 985, 52, false);
+      // The fins reach 6 past the envelope; all of it stays in sight.
+      expect(y - BLIMP_HALF_HEIGHT - 6).toBeGreaterThanOrEqual(0);
+      expect(y).toBeLessThan(52);
+    }
+    expect(blimpPlace(0, 985, 52, true).y).toBe(BLIMP_CEILING);
   });
 
   it('holds still in the middle of the view for reduced motion', () => {
