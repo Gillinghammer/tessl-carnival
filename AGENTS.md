@@ -14,12 +14,9 @@ them before you move on. If they pick the browser path, point them to
 
 ## Forks have their own factory
 
-This repository is a starter that everyone forks, so it has no `tessl.json`.
-Each person sets up a factory on their own fork. Setup turns the factory's
-automations on in Tessl and changes nothing in the repository. A fork can
-later get its own `tessl.json`, for example from the workshop's maintenance
-loop track. In a fork, that's expected: the fork's `tessl.json` belongs to the
-fork, not to everyone who forks this repository.
+This fork has its own `tessl.json`. It installs Tessl Verify and points to the
+fork's `verifiers/` rules. The factory automations remain configured in Tessl.
+The starter repository does not carry this fork-specific configuration.
 
 ## Stack
 
@@ -147,3 +144,7 @@ You often work on an issue with nobody around to answer questions.
 `WORKSHOP.md` starts the workshop this repo was built for, and sends people down
 one of two paths: `workshop/agent.md` or `workshop/browser.md`. Each has a core
 path everyone finishes, then optional tracks.
+
+# Agent Rules <!-- tessl-managed -->
+
+@.tessl/RULES.md follow the [instructions](.tessl/RULES.md)

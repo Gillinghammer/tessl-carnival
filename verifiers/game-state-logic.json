@@ -1,0 +1,18 @@
+{
+  "name": "Keep game rules callable without a browser",
+  "instruction": "A game's scoring, hit detection, movement, and state transitions are implemented in exported functions that can run without canvas, DOM, or animation-frame APIs.",
+  "relevant_when": "A src/games/<game-id>/game.ts file defines gameplay state or scoring logic and a CarnivalGame start method.",
+  "context": "AGENTS.md house rule 4 and the Water Cannon example keep game rules separate from browser input and rendering so Vitest can exercise them.",
+  "scope": "file",
+  "scope_reason": "The file contains the game-rule functions and the start method that invokes them; a provided CanvasRenderingContext2D used only for drawing is not game-rule state.",
+  "checklist": [
+    {
+      "name": "exported-browser-free-rules",
+      "rule": "Gameplay state changes and score calculations are exported and do not access window, document, canvas, localStorage, or requestAnimationFrame."
+    },
+    {
+      "name": "start-delegates-rules",
+      "rule": "The start method handles browser input and animation but delegates gameplay state changes and scoring to those browser-free functions."
+    }
+  ]
+}

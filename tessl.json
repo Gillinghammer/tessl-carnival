@@ -1,0 +1,26 @@
+{
+  "name": "tessl-carnival",
+  "mode": "vendored",
+  "dependencies": {
+    "tessl/tessl-verify": {
+      "version": "0.1.1"
+    }
+  },
+  "agents": [
+    "codex"
+  ],
+  "verify": {
+    "groups": {
+      "games": {
+        "path": "verifiers/game-*.json",
+        "level": "error",
+        "include": ["src/games/*/game.ts"]
+      },
+      "midway": {
+        "path": "verifiers/midway-*.json",
+        "level": "error",
+        "include": ["src/main.ts", "src/style.css"]
+      }
+    }
+  }
+}

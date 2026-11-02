@@ -1,0 +1,14 @@
+{
+  "name": "Preserve nonvisual game discovery when removing midway navigation",
+  "instruction": "A change that removes or hides the midway's named game links also provides an equivalent keyboard- and screen-reader-operable way to discover every registered game and open a chosen one.",
+  "relevant_when": "A diff in src/main.ts or src/style.css removes, hides, or disables the midway's list of links or buttons for registered games.",
+  "context": "Tessl Review found in PR #8 that removing the Booths navigation left only an unlabeled canvas route and a booth card that appears after visual movement. The replacement must preserve both discovery and activation without requiring visual map navigation.",
+  "scope": "diff",
+  "scope_reason": "The patch shows the removed game navigation and any replacement semantic controls introduced by the same change.",
+  "checklist": [
+    {
+      "name": "nonvisual-discovery-and-entry",
+      "rule": "If named links or buttons for registered games are removed or hidden, the diff adds an alternative that lets a keyboard or screen-reader user learn each available game's name and activate a chosen game without navigating the canvas visually. A generic canvas aria-label or proximity-only booth card does not satisfy this."
+    }
+  ]
+}
