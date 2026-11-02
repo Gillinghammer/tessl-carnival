@@ -4,7 +4,6 @@ import { registry } from './games';
 import { BLIMP_URL } from './midway/blimp';
 import { startMidway } from './midway/midway';
 import type { BoothSlot } from './midway/world';
-import { carnivalLink, REPO_URL, shareLinks } from './share';
 
 applyTheme();
 
@@ -25,26 +24,7 @@ function renderMidway() {
         <kbd>WASD</kbd> or <kbd>arrows</kbd> to walk, or click where you want to go.
         <kbd>E</kbd> to play.
       </p>
-      <p class="midway-credit">
-        Built with
-        <a href="https://tessl.io/?utm_source=carnival&amp;utm_medium=midway-credit&amp;utm_campaign=tessl-carnival" target="_blank" rel="noopener">Tessl</a>
-        at
-        <a href="https://tessl.io/devcon?utm_source=carnival&amp;utm_medium=midway-credit&amp;utm_campaign=tessl-carnival" target="_blank" rel="noopener">AI DevCon NYC</a>
-        <span class="midway-links">
-          <a href="${REPO_URL}" target="_blank" rel="noopener">Build your own</a>
-          <span class="midway-share" hidden>
-            · Share on
-            <a class="share-x" target="_blank" rel="noopener">X</a>
-            or
-            <a class="share-linkedin" target="_blank" rel="noopener">LinkedIn</a>
-          </span>
-        </span>
-      </p>
       <a class="blimp-link" href="${BLIMP_URL}" target="_blank" rel="noopener">Visit Picture.Repair, the blimp in the sky</a>
-      <nav class="midway-guide" aria-label="Booths">
-        <h2>Booths</h2>
-        <ul></ul>
-      </nav>
       <div class="booth-card" aria-live="polite" hidden>
         <h2></h2>
         <p class="description"></p>
@@ -52,23 +32,6 @@ function renderMidway() {
         <a class="play">Play</a>
       </div>
     </section>`;
-
-  const link = carnivalLink(location.href);
-  if (link) {
-    const share = shareLinks(link);
-    app.querySelector<HTMLAnchorElement>('.share-x')!.href = share.x;
-    app.querySelector<HTMLAnchorElement>('.share-linkedin')!.href = share.linkedIn;
-    app.querySelector<HTMLElement>('.midway-share')!.hidden = false;
-  }
-
-  const guide = app.querySelector('.midway-guide ul')!;
-  for (const game of registry.all()) {
-    const item = document.createElement('li');
-    item.innerHTML = `<a href="#/play/${game.id}"><span class="name"></span> <span class="best"></span></a>`;
-    item.querySelector('.name')!.textContent = game.name;
-    item.querySelector('.best')!.textContent = bestText(game);
-    guide.append(item);
-  }
 
   const card = app.querySelector<HTMLElement>('.booth-card')!;
   const showBooth = (booth: BoothSlot | undefined) => {
