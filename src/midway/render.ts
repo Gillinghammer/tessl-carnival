@@ -545,7 +545,7 @@ function carousel(ctx: Ctx, prop: Prop, t: number) {
   const cx = prop.x + prop.w / 2;
   const cy = prop.y + prop.h / 2;
   const c = at(cx, cy);
-  const turn = t * 0.5;
+  const turn = t * 1.0;
   const r = 1.75;
   oval(ctx, c[0] + 8, c[1] + 4, r * ISO_RX * 1.1, r * ISO_RY * 1.1, palette.shadow);
   cylinder(ctx, c, r, 0, 6, RED, 24);
@@ -1262,7 +1262,7 @@ function ferrisWheel(ctx: Ctx, prop: Prop, t: number) {
   const radius = 60;
   const hubZ = 76;
   const spread = 0.28;
-  const turn = t * 0.2;
+  const turn = t * 0.6;
   const cars = 10;
   const hubAt = (offset: number) => at(cx, cy + offset, hubZ);
   const onWheel = (offset: number, angle: number, r = radius): Pt => {
