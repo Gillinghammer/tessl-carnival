@@ -1,3 +1,4 @@
+import { BLIMP_URL, blimpPlace, onBlimp, type BlimpPlace } from './blimp';
 import { palette } from './palette';
 import {
   archBounds,
@@ -5,6 +6,7 @@ import {
   boothBounds,
   drawArch,
   drawBooth,
+  drawBlimp,
   drawBunting,
   drawCloud,
   drawFloaters,
@@ -108,6 +110,8 @@ export function startMidway(canvas: HTMLCanvasElement, options: MidwayOptions): 
   const floaters: Floater[] = [];
   const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let nextFloater = 2;
+  /** Where the blimp was last drawn, in view pixels, for clicks. */
+  let blimp: BlimpPlace | undefined;
   let inReach: BoothSlot | undefined;
   let destination: Point | undefined;
 
@@ -191,9 +195,21 @@ export function startMidway(canvas: HTMLCanvasElement, options: MidwayOptions): 
     destination = player.path.at(-1);
   };
 
+  /** Whether the pointer is on the blimp, which floats in the view, not the world. */
+  const blimpAt = (event: PointerEvent) => {
+    if (!blimp) return false;
+    const box = canvas.getBoundingClientRect();
+    return onBlimp(blimp, (event.clientX - box.left) / zoom, (event.clientY - box.top) / zoom);
+  };
+
   const onPointerDown = (event: PointerEvent) => {
     const point = toWorld(event);
     const booth = boothAt(point);
+    // The blimp floats behind the midway, so a booth in front of it wins.
+    if (!booth && blimpAt(event)) {
+      window.open(BLIMP_URL, '_blank', 'noopener');
+      return;
+    }
     if (!booth && billboardAt(point)) {
       window.open(DEVCON_URL, '_blank', 'noopener');
       return;
@@ -211,7 +227,8 @@ export function startMidway(canvas: HTMLCanvasElement, options: MidwayOptions): 
   };
   const onPointerMove = (event: PointerEvent) => {
     const point = toWorld(event);
-    canvas.style.cursor = boothAt(point) || billboardAt(point) ? 'pointer' : 'default';
+    canvas.style.cursor =
+      blimpAt(event) || boothAt(point) || billboardAt(point) ? 'pointer' : 'default';
   };
 
   window.addEventListener('keydown', onKeyDown);
@@ -280,6 +297,9 @@ export function startMidway(canvas: HTMLCanvasElement, options: MidwayOptions): 
       const y = HORIZON - camera.y - 50 - cloud.y * 100;
       drawCloud(ctx, x, y, cloud.size);
     }
+    // The Picture.Repair blimp, in front of the clouds and behind the midway.
+    blimp = blimpPlace(t, view.w, HORIZON - camera.y, calm);
+    drawBlimp(ctx, blimp.x, blimp.y);
 
     // Snap the camera to whole device pixels so the pre-drawn ground stays crisp.
     const k = dpr * zoom;

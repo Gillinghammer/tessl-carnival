@@ -1,5 +1,6 @@
 import { canvasFont, theme } from '../carnival';
 import bannerUrl from './aidevcon-banner.png';
+import { BLIMP_HALF_HEIGHT, BLIMP_HALF_WIDTH } from './blimp';
 import { palette } from './palette';
 import {
   CART_KINDS,
@@ -1706,6 +1707,62 @@ export function drawCloud(ctx: Ctx, x: number, y: number, size: number) {
   ctx.beginPath();
   ctx.roundRect(x - 30 * size, y, 60 * size, 4 * size, 2 * size);
   ctx.fill();
+}
+
+/**
+ * The Picture.Repair blimp, its envelope centred on (x, y): a silver body with
+ * red bands, tail fins, a gondola, and the name along its side.
+ */
+export function drawBlimp(ctx: Ctx, x: number, y: number) {
+  const rx = BLIMP_HALF_WIDTH;
+  const ry = BLIMP_HALF_HEIGHT;
+  // Its shadow on the sky, then the tail fins behind the envelope.
+  oval(ctx, x + 3, y + 4, rx, ry, palette.cloudShade);
+  poly(
+    ctx,
+    [
+      [x - rx + 12, y - 4],
+      [x - rx - 12, y - ry - 6],
+      [x - rx - 6, y],
+      [x - rx - 12, y + ry + 6],
+      [x - rx + 12, y + 4],
+    ],
+    palette.red,
+  );
+  // The gondola, hanging under the middle.
+  ctx.fillStyle = palette.ink;
+  ctx.fillRect(x - 6, y + ry - 4, 1.5, 6);
+  ctx.fillRect(x + 4.5, y + ry - 4, 1.5, 6);
+  ctx.fillStyle = palette.red;
+  ctx.beginPath();
+  ctx.roundRect(x - 13, y + ry + 1, 26, 8, 3);
+  ctx.fill();
+  ctx.fillStyle = palette.gold;
+  for (const wx of [-8, -2, 4]) ctx.fillRect(x + wx, y + ry + 3, 4, 3);
+  // The envelope, shaded underneath, with a red band at each end.
+  oval(ctx, x, y, rx, ry, palette.blimpShade);
+  oval(ctx, x, y - 2, rx - 1, ry - 2, palette.blimp);
+  ctx.save();
+  ctx.beginPath();
+  ctx.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2);
+  ctx.clip();
+  ctx.fillStyle = palette.red;
+  ctx.fillRect(x - rx, y - ry, 12, ry * 2);
+  ctx.fillRect(x + rx - 10, y - ry, 10, ry * 2);
+  oval(ctx, x - 10, y - ry + 5, rx * 0.55, 3, 'rgba(255,255,255,0.7)');
+  ctx.restore();
+  // The name, as big as fits between the bands.
+  const text = 'Picture.Repair';
+  ctx.font = canvasFont('small', 'bold');
+  const fit = Math.min((ry * 1.1) / theme.font.small, (rx * 2 - 34) / ctx.measureText(text).width);
+  ctx.save();
+  ctx.translate(x + 1, y + 1);
+  ctx.scale(fit, fit);
+  ctx.fillStyle = palette.ink;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(text, 0, 0);
+  ctx.restore();
 }
 
 export interface Floater {

@@ -13,6 +13,8 @@ export const palette = {
   cloud: '#bfeafc',
   cloudShade: '#94d8f4',
   haze: '#5fc3b8',
+  blimp: '#f4f1fa',
+  blimpShade: '#cfc6e2',
 
   grass: '#a5c43a',
   grassDark: '#8aab2a',

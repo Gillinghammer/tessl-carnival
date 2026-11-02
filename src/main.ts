@@ -1,6 +1,7 @@
 import './style.css';
 import { applyTheme, bestScore, type CarnivalGame } from './carnival';
 import { registry } from './games';
+import { BLIMP_URL } from './midway/blimp';
 import { startMidway } from './midway/midway';
 import type { BoothSlot } from './midway/world';
 import { carnivalLink, REPO_URL, shareLinks } from './share';
@@ -39,6 +40,7 @@ function renderMidway() {
           </span>
         </span>
       </p>
+      <a class="blimp-link" href="${BLIMP_URL}" target="_blank" rel="noopener">Visit Picture.Repair, the blimp in the sky</a>
       <nav class="midway-guide" aria-label="Booths">
         <h2>Booths</h2>
         <ul></ul>
